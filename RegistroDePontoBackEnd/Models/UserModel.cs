@@ -1,9 +1,10 @@
 namespace User.Models;
 
-public class UserModel {
+public class UserModel
+{
 
-    public UserModel() { }
-    public UserModel(string name, string email, string password, string mobilePhone, string externalId, DateTime creationDate, DateTime lastLogin, bool isActive) {
+    public UserModel(string name, string email, string password, string mobilePhone, string externalId, DateTime creationDate, DateTime lastLogin, bool isActive)
+    {
         Id = Guid.NewGuid();
         Name = name;
         Email = email;

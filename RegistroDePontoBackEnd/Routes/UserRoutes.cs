@@ -3,7 +3,7 @@ using User.Models;
 
 namespace UserRoutes.Routes;
 
-public static class UserRoute
+public static class UserRoutes
 {
     public static void RegisterRoutes(this WebApplication app)
     {

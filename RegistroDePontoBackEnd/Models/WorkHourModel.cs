@@ -39,12 +39,11 @@ namespace WorkHour.Models
         public int UpdatedBy { get; set; }
         public DateTime UpdatedDate { get; set; }
 
-        // Navigation properties
-        public UserModel User { get; set; }
-        public DeviceModel Device { get; set; }
-        public ProcessStatusModel ProcessStatus { get; set; }
-        public JourneyModel Journey { get; set; }
-        public UserModel CreatedByUser { get; set; }
-        public UserModel UpdatedByUser { get; set; }
+        public UserModel? User { get; set; }
+        public DeviceModel? Device { get; set; }
+        public ProcessStatusModel? ProcessStatus { get; set; }
+        public JourneyModel? Journey { get; set; }
+        public UserModel? CreatedByUser { get; set; }
+        public UserModel? UpdatedByUser { get; set; }
     }
 }
