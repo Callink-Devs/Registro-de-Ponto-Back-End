@@ -18,8 +18,8 @@ namespace ConnectionWhitelistRoutes.Routes
                     connectionWhitelist.IsActive,
                     connectionWhitelist.CreatedBy,
                     connectionWhitelist.CreatedDate,
-                    connectionWhitelist.UpdatedDate,
-                    connectionWhitelist.UpdatedBy
+                    connectionWhitelist.UpdatedBy,
+                    connectionWhitelist.UpdatedDate
                 );
                 repository.AddConnectionWhitelist(newConnectionWhitelist);
                 return Results.Created($"/connectionwhitelist/{connectionWhitelist.Id}", connectionWhitelist);
