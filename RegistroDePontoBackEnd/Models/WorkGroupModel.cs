@@ -18,10 +18,8 @@ namespace WorkGoup.Models {
         public long Code { get; set; }
         public long Priority { get; set; }
         public bool IsActive { get; set; }
-        public int CreatedById { get; set; }
         public virtual UserModel? CreatedBy { get; set; } 
         public DateTime CreatedDate { get; set;}
-        public int UpdatedById { get; set; }
         public virtual UserModel? UpdatedBy { get; set; }
         public DateTime UpdatedDate { get; set;}
     }
