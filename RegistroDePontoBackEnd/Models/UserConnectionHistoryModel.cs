@@ -1,12 +1,15 @@
-using SystemConnectionHistory.Models;
-using User.Models;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace UserConnectionHistory.Models {
-    public class UserConnectionHistoryModel {
-        public UserConnectionHistoryModel(UserModel? userModel, SystemConnectionHistoryModel? systemConnectionHistoryModel, string browserIP, string iP, string hostname, bool isMatchedIp, bool isWhitelist, bool isActive, UserModel createdBy, UserModel updatedBy, DateTime createdDate, DateTime updatedDate) {
-            Id = Guid.NewGuid();
-            UserId = userModel;
-            BrowserIPSystemConnectionId = systemConnectionHistoryModel;
+namespace UserConnectionHistory.Models
+{
+    public class UserConnectionHistoryModel
+    {
+        public UserConnectionHistoryModel(int id, int userId, int browserIPSystemConnectionId, string browserIP, string iP, string hostname, bool isMatchedIp, bool isWhitelist, bool isActive, int createdBy, int updatedBy, DateTime createdDate, DateTime updatedDate)
+        {
+            Id = id;
+            UserId = userId;
+            BrowserIPSystemConnectionId = browserIPSystemConnectionId;
             BrowserIP = browserIP;
             IP = iP;
             Hostname = hostname;
@@ -18,20 +21,24 @@ namespace UserConnectionHistory.Models {
             CreatedDate = createdDate;
             UpdatedDate = updatedDate;
         }
-        public Guid Id { get; init; }
-        public UserModel? UserId { get; set; }
-        public SystemConnectionHistoryModel? BrowserIPSystemConnectionId { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; init; }
+        [ForeignKey("SystemConnectionHistoryId")]
+        public int BrowserIPSystemConnectionId { get; set; }
+        [ForeignKey("UserId")]
+        public int UserId { get; set; }
         public string BrowserIP { get; set; }
         public string IP { get; set; }
         public string Hostname { get; set; }
         public bool IsMatchedIP { get; set; }
         public bool IsWhitelist { get; set; }
         public bool IsActive { get; set; }
-        public int CreatedById { get; set; }
-        public virtual UserModel? CreatedBy { get; set; } 
-        public DateTime CreatedDate { get; set;}
-        public int UpdatedById { get; set; }
-        public virtual UserModel? UpdatedBy { get; set; }
-        public DateTime UpdatedDate { get; set;}
+        [ForeignKey("UserId")]
+        public int CreatedBy { get; set; }
+        public DateTime CreatedDate { get; set; }
+        [ForeignKey("UserId")]
+        public int UpdatedBy { get; set; }
+        public DateTime UpdatedDate { get; set; }
     }
 }

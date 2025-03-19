@@ -1,8 +1,12 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using User.Models;
 
-namespace UserSubscription.Models {
-    public class UserSubscriptionModel {
-        public UserSubscriptionModel(UserModel? userId, string subscriptionJSON, bool isActive, UserModel createdBy, UserModel updatedBy, DateTime createdDate, DateTime updatedDate) {
+namespace UserSubscription.Models
+{
+    public class UserSubscriptionModel
+    {
+        public UserSubscriptionModel(int userId, string subscriptionJSON, bool isActive, int createdBy, int updatedBy, DateTime createdDate, DateTime updatedDate)
+        {
             UserId = userId;
             SubscriptionJSON = subscriptionJSON;
             IsActive = isActive;
@@ -11,14 +15,15 @@ namespace UserSubscription.Models {
             CreatedDate = createdDate;
             UpdatedDate = updatedDate;
         }
-        public UserModel? UserId { get; init; }
+        [ForeignKey("UserId")]
+        public int UserId { get; init; }
         public string SubscriptionJSON { get; set; }
         public bool IsActive { get; set; }
-        public int CreatedById { get; set; }
-        public virtual UserModel? CreatedBy { get; set; } 
-        public DateTime CreatedDate { get; set;}
-        public int UpdatedById { get; set; }
-        public virtual UserModel? UpdatedBy { get; set; }
-        public DateTime UpdatedDate { get; set;}
+        [ForeignKey("UserId")]
+        public int CreatedBy { get; set; }
+        public DateTime CreatedDate { get; set; }
+        [ForeignKey("UserId")]
+        public int UpdatedBy { get; set; }
+        public DateTime UpdatedDate { get; set; }
     }
 }

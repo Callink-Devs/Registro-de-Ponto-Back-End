@@ -1,14 +1,20 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace ConnectionAttribute.Models;
 
-public class ConnectionAttributeModel {
-    public ConnectionAttributeModel(string label, string order, bool isactive) {
+public class ConnectionAttributeModel
+{
+    public ConnectionAttributeModel(int id, string label, string order, bool isactive)
+    {
         Label = label;
         Order = order;
         IsActive = isactive;
-        Id = Guid.NewGuid();
+        Id = id;
     }
-
-    public Guid Id { get; init; }
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public int Id { get; init; }
     public string Label { get; set; }
     public string Order { get; set; }
     public bool IsActive { get; set; }

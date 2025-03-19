@@ -1,11 +1,14 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace User.Models;
 
 public class UserModel
 {
 
-    public UserModel(string name, string email, string password, string mobilePhone, string externalId, DateTime creationDate, DateTime lastLogin, bool isActive)
+    public UserModel(int id, string name, string email, string password, string mobilePhone, string externalId, DateTime creationDate, DateTime lastLogin, bool isActive)
     {
-        Id = Guid.NewGuid();
+        Id = id;
         Name = name;
         Email = email;
         Password = password;
@@ -15,8 +18,9 @@ public class UserModel
         LastLogin = lastLogin;
         IsActive = isActive;
     }
-
-    public Guid Id { get; init; }
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public int Id { get; init; }
     public string Name { get; set; }
     public string Password { get; set; }
     public string Email { get; set; }

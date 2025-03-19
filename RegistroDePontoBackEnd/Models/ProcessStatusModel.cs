@@ -1,14 +1,15 @@
-namespace ProcessStatus.Models {
-    public class ProcessStatusModel {
-        public ProcessStatusModel(string label, string order, bool isactive) {
-        Label = label;
-        Order = order;
-        IsActive = isactive;
-        Id = Guid.NewGuid();
-    }
-        public Guid Id { get; init; }
-        public string Label { get; set; }
-        public string Order { get; set; }
-        public bool IsActive { get; set; }
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ProcessStatus.Models
+{
+    public class ProcessStatusModel(int id, string label, string order, bool isactive)
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; init; } = id;
+        public string Label { get; set; } = label;
+        public string Order { get; set; } = order;
+        public bool IsActive { get; set; } = isactive;
     }
 }

@@ -6,28 +6,29 @@ namespace ConnectionWhitelist.Infrastructure
 {
     public class ConnectionWhitelistRepository
     {
-        public int AddConnectionWhitelist(ConnectionWhitelistModel connectionWhitelist)
+        public int AddConnectionWhitelist(ConnectionWhitelistModel connectionWhitelist, int connectionAttributeId, int userId)
         {
             using var conn = new RegistroDePontoContext();
             string query = @"
-                INSERT INTO ""ConnectionWhitelist""
-                (""Id"",""IP"",""IsActive"")
-                VALUES (@Id, @IP, @IsActive)";
+        INSERT INTO ""ConnectionWhitelist""
+        (""Id"", ""IP"", ""IsActive"", ""ConnectionAttributeId"", ""Attribute"", ""AttributeLength"", ""Description"", ""IsToDisregardInHitory"", ""CreatedBy"", ""UpdatedBy"", ""CreatedDate"", ""UpdatedDate"")
+        VALUES (@Id, @IP, @IsActive, @ConnectionAttributeId, @Attribute, @AttributeLength, @Description, @IsToDisregardInHitory, @CreatedBy, @UpdatedBy, @CreatedDate, @UpdatedDate)";
 
             var result = conn.Connection.Execute(query, new
             {
                 connectionWhitelist.Id,
-                connectionWhitelist.ConnectionAttributeId,
+                ConnectionAttributeId = connectionAttributeId,
                 connectionWhitelist.Attribute,
                 connectionWhitelist.AttributeLength,
                 connectionWhitelist.Description,
                 connectionWhitelist.IsToDisregardInHitory,
-                connectionWhitelist.CreatedBy,
+                CreatedBy = userId,
+                UpdatedBy = userId,
+                connectionWhitelist.IsActive,
                 connectionWhitelist.CreatedDate,
-                connectionWhitelist.UpdatedBy,
-                connectionWhitelist.UpdatedDate,
-                connectionWhitelist.IsActive
+                connectionWhitelist.UpdatedDate
             });
+
             return result;
         }
 

@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Device.Models;
 using Journey.Models;
 using ProcessStatus.Models;
@@ -7,9 +9,9 @@ namespace WorkHour.Models
 {
     public class WorkHourModel
     {
-        public WorkHourModel(int userId, int deviceId, int processStatusId, int journeyId, string iP, DateTime syncDate, bool isActive, int createdBy, int updatedBy, DateTime createdDate, DateTime updatedDate)
+        public WorkHourModel(int id, int userId, int deviceId, int processStatusId, int journeyId, string iP, DateTime syncDate, bool isActive, int createdBy, int updatedBy, DateTime createdDate, DateTime updatedDate)
         {
-            Id = Guid.NewGuid();
+            Id = id;
             UserId = userId;
             DeviceId = deviceId;
             ProcessStatusId = processStatusId;
@@ -22,28 +24,26 @@ namespace WorkHour.Models
             CreatedDate = createdDate;
             UpdatedDate = updatedDate;
         }
-
-        public Guid Id { get; init; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; init; }
+        [ForeignKey("UserId")]
         public int UserId { get; init; }
+        [ForeignKey("DeviceId")]
         public int DeviceId { get; init; }
+        [ForeignKey("ProcessStatusId")]
         public int ProcessStatusId { get; init; }
+        [ForeignKey("JourneyId")]
         public int JourneyId { get; init; }
         public DateTime WorkHour { get; set; }
         public string IP { get; set; }
         public DateTime SyncDate { get; set; }
         public bool IsActive { get; set; }
-        public int CreatedById { get; set; }
+        [ForeignKey("UserId")]
         public int CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
-        public int UpdatedById { get; set; }
+        [ForeignKey("UserId")]
         public int UpdatedBy { get; set; }
         public DateTime UpdatedDate { get; set; }
-
-        public UserModel? User { get; set; }
-        public DeviceModel? Device { get; set; }
-        public ProcessStatusModel? ProcessStatus { get; set; }
-        public JourneyModel? Journey { get; set; }
-        public UserModel? CreatedByUser { get; set; }
-        public UserModel? UpdatedByUser { get; set; }
     }
 }

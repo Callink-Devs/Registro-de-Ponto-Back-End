@@ -10,6 +10,7 @@ namespace ConnectionAttributeRoutes.Routes
             app.MapPost("post", (ConnectionAttributeModel connectionAttribute, ConnectionAttributeRepository repository) =>
             {
                 var newConnectionAttribute = new ConnectionAttributeModel(
+                    connectionAttribute.Id,
                     connectionAttribute.Label,
                     connectionAttribute.Order,
                     connectionAttribute.IsActive

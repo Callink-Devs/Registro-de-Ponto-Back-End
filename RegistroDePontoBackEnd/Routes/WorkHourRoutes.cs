@@ -10,6 +10,7 @@ namespace WorkHourRoutes
             app.MapPost("post", (WorkHourModel workHour, WorkHourRepository repository) =>
             {
                 var newWork = new WorkHourModel(
+                    workHour.Id,
                     workHour.UserId,
                     workHour.DeviceId,
                     workHour.ProcessStatusId,

@@ -1,9 +1,14 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using User.Models;
 
-namespace WorkGoup.Models {
-    public class WorkGroupModel {
-        public WorkGroupModel(string name, long code, long priority, bool isActive, UserModel? createdBy, UserModel? updatedBy, DateTime createdDate, DateTime updatedDate) {
-            Id = Guid.NewGuid();
+namespace WorkGoup.Models
+{
+    public class WorkGroupModel
+    {
+        public WorkGroupModel(int id, string name, long code, long priority, bool isActive, int createdBy, int updatedBy, DateTime createdDate, DateTime updatedDate)
+        {
+            Id = id;
             Name = name;
             Code = code;
             Priority = priority;
@@ -13,16 +18,18 @@ namespace WorkGoup.Models {
             CreatedDate = createdDate;
             UpdatedDate = updatedDate;
         }
-        public Guid Id { get; init; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; init; }
         public string Name { get; set; }
         public long Code { get; set; }
         public long Priority { get; set; }
         public bool IsActive { get; set; }
-        public int CreatedById { get; set; }
-        public virtual UserModel? CreatedBy { get; set; } 
-        public DateTime CreatedDate { get; set;}
-        public int UpdatedById { get; set; }
-        public virtual UserModel? UpdatedBy { get; set; }
-        public DateTime UpdatedDate { get; set;}
+        [ForeignKey("UserId")]
+        public int CreatedBy { get; set; }
+        public DateTime CreatedDate { get; set; }
+        [ForeignKey("UserId")]
+        public int UpdatedBy { get; set; }
+        public DateTime UpdatedDate { get; set; }
     }
 }

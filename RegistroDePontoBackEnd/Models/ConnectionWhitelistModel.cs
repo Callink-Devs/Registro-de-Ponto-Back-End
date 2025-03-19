@@ -1,13 +1,13 @@
-using ConnectionAttribute.Models;
-using User.Models;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ConnectionWhitelist.Models
 {
     public class ConnectionWhitelistModel
     {
-        public ConnectionWhitelistModel(int connectionAttributeId, string attribute, int attributeLength, string description, string isToDisrgardInHistory, bool isActive, int createdBy, DateTime createdDate, int updatedBy, DateTime updatedDate)
+        public ConnectionWhitelistModel(int id, int connectionAttributeId, string attribute, int attributeLength, string description, string isToDisrgardInHistory, bool isActive, int createdBy, DateTime createdDate, int updatedBy, DateTime updatedDate)
         {
-            Id = Guid.NewGuid();
+            Id = id;
             ConnectionAttributeId = connectionAttributeId;
             Attribute = attribute;
             AttributeLength = attributeLength;
@@ -19,21 +19,21 @@ namespace ConnectionWhitelist.Models
             UpdatedBy = updatedBy;
             UpdatedDate = updatedDate;
         }
-
-        public Guid Id { get; init; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; init; }
+        [ForeignKey("ConnectionAttributeId")]
         public int ConnectionAttributeId { get; init; }
         public string Attribute { get; set; }
         public int AttributeLength { get; set; }
         public string Description { get; set; }
         public string IsToDisregardInHitory { get; set; }
         public bool IsActive { get; set; }
+        [ForeignKey("UserId")]
         public int CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
+        [ForeignKey("UserId")]
         public int UpdatedBy { get; set; }
         public DateTime UpdatedDate { get; set; }
-
-        public UserModel? CreatedByConnectionWhiteList { get; set; }
-        public UserModel? UpdatedByConnectionWhiteList { get; set; }
-        public ConnectionAttributeModel? ConnectionAttribute { get; set; }
     }
 }

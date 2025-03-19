@@ -1,14 +1,14 @@
-using ProcessStatus.Models;
-using User.Models;
-using UserSubscription.Models;
-using WorkHour.Models;
-using WorkloadAlert.Models;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace PushNotification.Models {
-    
-    public class PushNotificationModel {
-        public PushNotificationModel(UserSubscriptionModel userSubscriptionId, ProcessStatusModel processStatusId, WorkHourModel lastWorkHourId, WorkloadAlertModel workloadAlertId, bool sendOnlyToBPI, UserModel createdBy, UserModel updatedBy, DateTime createdDate, DateTime updatedDate, bool isActive) {
-            Id = Guid.NewGuid();
+namespace PushNotification.Models
+{
+
+    public class PushNotificationModel
+    {
+        public PushNotificationModel(int id, int userSubscriptionId, int processStatusId, int lastWorkHourId, int workloadAlertId, bool sendOnlyToBPI, int createdBy, int updatedBy, DateTime createdDate, DateTime updatedDate, bool isActive)
+        {
+            Id = id;
             UserSubscriptionId = userSubscriptionId;
             ProcessStatusId = processStatusId;
             LastWorkHourId = lastWorkHourId;
@@ -20,18 +20,28 @@ namespace PushNotification.Models {
             UpdatedDate = updatedDate;
             IsActive = isActive;
         }
-        public Guid Id { get; init; }
-        public UserSubscriptionModel UserSubscriptionId { get; set; }
-        public ProcessStatusModel ProcessStatusId { get; set; }
-        public WorkHourModel LastWorkHourId { get; set; }
-        public WorkloadAlertModel WorkloadAlertId { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
         public bool SendOnlyToBPI { get; set; }
         public bool IsActive { get; set; }
-        public int CreatedById { get; set; }
-        public virtual UserModel? CreatedBy { get; set; } 
-        public DateTime CreatedDate { get; set;}
-        public int UpdatedById { get; set; }
-        public virtual UserModel? UpdatedBy { get; set; }
-        public DateTime UpdatedDate { get; set;}
+        [ForeignKey("UserId")]
+        public int CreatedBy { get; set; }
+        public DateTime CreatedDate { get; set; }
+        [ForeignKey("UserId")]
+        public int UpdatedBy { get; set; }
+        public DateTime UpdatedDate { get; set; }
+
+        [ForeignKey("UserSubscriptionId")]
+        public int UserSubscriptionId { get; set; }
+
+        [ForeignKey("ProcessStatusId")]
+        public int ProcessStatusId { get; set; }
+
+        [ForeignKey("LastWorkHourId")]
+        public int LastWorkHourId { get; set; }
+
+        [ForeignKey("WorkloadAlertId")]
+        public int WorkloadAlertId { get; set; }
     }
 }

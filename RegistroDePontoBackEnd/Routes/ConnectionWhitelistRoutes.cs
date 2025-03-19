@@ -1,3 +1,4 @@
+using ConnectionAttribute.Models;
 using ConnectionWhitelist.Infrastructure;
 using ConnectionWhitelist.Models;
 
@@ -10,6 +11,7 @@ namespace ConnectionWhitelistRoutes.Routes
             app.MapPost("post", (ConnectionWhitelistModel connectionWhitelist, ConnectionWhitelistRepository repository) =>
             {
                 var newConnectionWhitelist = new ConnectionWhitelistModel(
+                    connectionWhitelist.Id,
                     connectionWhitelist.ConnectionAttributeId,
                     connectionWhitelist.Attribute,
                     connectionWhitelist.AttributeLength,
@@ -21,9 +23,11 @@ namespace ConnectionWhitelistRoutes.Routes
                     connectionWhitelist.UpdatedBy,
                     connectionWhitelist.UpdatedDate
                 );
-                repository.AddConnectionWhitelist(newConnectionWhitelist);
+                repository.AddConnectionWhitelist(newConnectionWhitelist, connectionWhitelist.ConnectionAttributeId, connectionWhitelist.CreatedBy);
+
                 return Results.Created($"/connectionwhitelist/{connectionWhitelist.Id}", connectionWhitelist);
             });
+
             app.MapGet("get", (ConnectionWhitelistRepository repository) =>
             {
                 var connectionWhitelists = repository.GetConnectionWhitelists();

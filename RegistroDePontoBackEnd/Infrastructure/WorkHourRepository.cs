@@ -1,25 +1,14 @@
 using Dapper;
-using Npgsql;
 using WorkHour.Models;
-using User.Models;
-using ProcessStatus.Models;
-using Device.Models;
-using Journey.Models;
+using RegistroDePontoDbContext.Data;
 
 namespace WorkHour.Infrastructure
 {
     public class WorkHourRepository
     {
-        private readonly string _connectionString;
-
-        public WorkHourRepository(string connectionString)
+        public int AddWorkHour(WorkHourModel workHour, int userId, int deviceId, int processStatusId, int journeyId)
         {
-            _connectionString = connectionString;
-        }
-
-        public int AddWorkHour(WorkHourModel workHour)
-        {
-            using var conn = new NpgsqlConnection(_connectionString);
+            using var conn = new RegistroDePontoContext();
             string query = @"
                 INSERT INTO ""WorkHour""
                 (""Id"", ""UserId"", ""DeviceId"", ""ProcessStatusId"", ""JourneyId"", ""IP"", ""SyncDate"", ""IsActive"", ""CreatedBy"", ""UpdatedBy"", ""CreatedDate"", ""UpdatedDate"")
@@ -28,15 +17,15 @@ namespace WorkHour.Infrastructure
             var result = conn.Execute(query, new
             {
                 workHour.Id,
-                workHour.UserId,
-                workHour.DeviceId,
-                workHour.ProcessStatusId,
-                workHour.JourneyId,
+                UserId = userId,
+                DeviceId = deviceId,
+                ProcessStatusId = processStatusId,
+                JourneyId = journeyId,
                 workHour.IP,
                 workHour.SyncDate,
                 workHour.IsActive,
-                workHour.CreatedBy,
-                workHour.UpdatedBy,
+                CreatedBy = userId,
+                UpdatedBy = userId,
                 workHour.CreatedDate,
                 workHour.UpdatedDate
             });
@@ -45,31 +34,10 @@ namespace WorkHour.Infrastructure
 
         public List<WorkHourModel> GetWorkHours()
         {
-            using var conn = new NpgsqlConnection(_connectionString);
+            using var conn = new RegistroDePontoContext();
             string query = @"
-                SELECT wh.*, u.*, d.*, ps.*, j.*, cu.*, uu.*
-                FROM ""WorkHour"" wh
-                JOIN ""User"" u ON wh.""UserId"" = u.""Id""
-                JOIN ""Device"" d ON wh.""DeviceId"" = d.""Id""
-                JOIN ""ProcessStatus"" ps ON wh.""ProcessStatusId"" = ps.""Id""
-                JOIN ""Journey"" j ON wh.""JourneyId"" = j.""Id""
-                JOIN ""User"" cu ON wh.""CreatedBy"" = cu.""Id""
-                JOIN ""User"" uu ON wh.""UpdatedBy"" = uu.""Id"";";
-
-            var workHours = conn.Query<WorkHourModel, UserModel, DeviceModel, ProcessStatusModel, JourneyModel, UserModel, UserModel, WorkHourModel>(
-                query,
-                (workHour, user, device, processStatus, journey, createdByUser, updatedByUser) =>
-                {
-                    workHour.User = user;
-                    workHour.Device = device;
-                    workHour.ProcessStatus = processStatus;
-                    workHour.Journey = journey;
-                    workHour.CreatedByUser = createdByUser;
-                    workHour.UpdatedByUser = updatedByUser;
-                    return workHour;
-                },
-                splitOn: "Id,Id,Id,Id,Id,Id"
-            ).ToList();
+                SELECT * FROM ""WorkHour"";";
+            var workHours = conn.Connection.Query<WorkHourModel>(query).ToList();
 
             return workHours;
         }
