@@ -25,18 +25,11 @@ namespace WorkGoup.Models
         public long Code { get; set; }
         public long Priority { get; set; }
         public bool IsActive { get; set; }
-<<<<<<< HEAD
         [ForeignKey("UserId")]
         public int CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
         [ForeignKey("UserId")]
         public int UpdatedBy { get; set; }
         public DateTime UpdatedDate { get; set; }
-=======
-        public virtual UserModel? CreatedBy { get; set; } 
-        public DateTime CreatedDate { get; set;}
-        public virtual UserModel? UpdatedBy { get; set; }
-        public DateTime UpdatedDate { get; set;}
->>>>>>> 56323271f8cf092ce1e3b116470146fa4e55748f
     }
 }

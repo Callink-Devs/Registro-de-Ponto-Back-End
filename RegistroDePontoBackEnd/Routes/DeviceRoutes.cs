@@ -20,7 +20,7 @@ namespace Routes.Routes
                     device.Code,
                     device.IsActive
                 );
-                repository.AddDevice(newDevice);
+                repository.AddDevice(newDevice, device.CompanyId, device.WorkGroupId, device.CreatedBy);
                 return Results.Created($"/device/{device.Id}", device);
             });
 

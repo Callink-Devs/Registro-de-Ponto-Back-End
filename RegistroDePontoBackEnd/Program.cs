@@ -8,6 +8,7 @@ using RegistroDePontoDbContext.Data;
 using Routes.Routes;
 using User.Infrastructure;
 using WorkHour.Infrastructure;
+using WorkHourRoutes;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +20,8 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<RegistroDePontoContext>();
-builder.Services.AddScoped<PushNotificationRepository>();
+builder.Services.AddScoped<WorkHourRepository>();
+builder.Services.AddScoped<UserRepository>();
 
 var app = builder.Build();
 
@@ -33,14 +35,10 @@ app.UseHttpsRedirection();
 
 app.UseRouting();
 
-// app.MapUserRoutes();
-// app.MapDeviceRoutes();
-app.MapPushNotificationRoutes();
-// app.MapParameterRoutes();
-// app.MapConnectionAttributeRoutes();
-// app.MapConnectionWhitelistRoutes();
-// app.MapWorkHourRoutes();
-// app.MapProcessStatusRoutes();
+app.MapControllers();
+
+app.WorkHourRoutes();
+app.UserRoutes();
 
 app.Run();
 

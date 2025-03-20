@@ -5,10 +5,10 @@ namespace User.Models;
 
 public class UserModel
 {
+    public UserModel() { }
 
-    public UserModel(int id, string name, string email, string password, string mobilePhone, string externalId, DateTime creationDate, DateTime lastLogin, bool isActive)
+    public UserModel(string name, string email, string password, string mobilePhone, string externalId, DateTime creationDate, DateTime lastLogin, bool isActive)
     {
-        Id = id;
         Name = name;
         Email = email;
         Password = password;

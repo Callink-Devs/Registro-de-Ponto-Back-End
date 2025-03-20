@@ -4,9 +4,10 @@ namespace Routes.Routes
     {
         public static void MapAllRoutes(this IEndpointRouteBuilder endpoints)
         {
-            endpoints.MapUserRoutes();
+            endpoints.UserRoutes();
             endpoints.MapDeviceRoutes();
             endpoints.MapPushNotificationRoutes();
+
         }
     }
 }

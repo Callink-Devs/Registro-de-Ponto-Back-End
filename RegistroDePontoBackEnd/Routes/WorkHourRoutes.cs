@@ -23,7 +23,7 @@ namespace WorkHourRoutes
                     workHour.CreatedDate,
                     workHour.UpdatedDate
                 );
-                repository.AddWorkHour(newWork);
+                repository.AddWorkHour(newWork, workHour.UserId, workHour.DeviceId, workHour.ProcessStatusId, workHour.JourneyId);
                 return Results.Created($"/workhour/{workHour.Id}", workHour);
             });
             app.MapGet("get", (WorkHourRepository repository) =>

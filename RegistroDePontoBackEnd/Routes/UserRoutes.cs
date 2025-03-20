@@ -3,14 +3,13 @@ using User.Models;
 
 namespace Routes.Routes
 {
-    public static class UserRoutes
+    public static class UserRoute
     {
-        public static void MapUserRoutes(this IEndpointRouteBuilder endpoints)
+        public static void UserRoutes(this IEndpointRouteBuilder endpoints)
         {
             endpoints.MapPost("/user/post", (UserModel user, UserRepository repository) =>
             {
                 var newUser = new UserModel(
-                    user.Id,
                     user.Name,
                     user.Email,
                     user.Password,

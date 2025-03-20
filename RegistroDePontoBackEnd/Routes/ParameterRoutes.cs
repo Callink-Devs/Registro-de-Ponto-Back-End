@@ -21,7 +21,7 @@ namespace ParameterRoute.Routes
                     parameter.CreatedBy,
                     parameter.UpdatedBy
                 );
-                repository.AddParameter(newParameter);
+                repository.AddParameter(newParameter, parameter.CreatedBy);
                 return Results.Created($"/parameter/{parameter.Id}", parameter);
             });
             app.MapGet("get", (ParameterRepository repository) =>

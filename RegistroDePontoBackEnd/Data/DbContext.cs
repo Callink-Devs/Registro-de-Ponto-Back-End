@@ -8,7 +8,7 @@ public class RegistroDePontoContext : IDisposable
 
     public RegistroDePontoContext()
     {
-        Connection = new NpgsqlConnection("Host=localhost;Port=5432;Username=postgres;Password=;Database=RegistroDePonto");
+        Connection = new NpgsqlConnection("Host=localhost;Port=5432;Username=postgres;Password=Joaovictor10@;Database=RegistroDePonto");
         Connection.Open();
     }
 

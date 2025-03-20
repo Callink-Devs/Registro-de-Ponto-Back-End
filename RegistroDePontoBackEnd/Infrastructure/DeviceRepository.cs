@@ -6,7 +6,7 @@ namespace Device.Infrastructure
 {
     public class DeviceRepository
     {
-        public int AddDevice(DeviceModel device, int userId, int companyModelId, int workGroupModelId)
+        public int AddDevice(DeviceModel device, int userId, int companyId, int workGroupId)
         {
             using var conn = new RegistroDePontoContext();
             string query = @"
@@ -17,8 +17,8 @@ namespace Device.Infrastructure
             var result = conn.Execute(query, new
             {
                 device.Id,
-                CompanyId = companyModelId,
-                WorkGroupId = workGroupModelId,
+                CompanyId = companyId,
+                WorkGroupId = workGroupId,
                 device.Code,
                 device.IsActive,
                 CreatedBy = userId,
