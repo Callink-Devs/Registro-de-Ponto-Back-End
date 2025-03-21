@@ -17,6 +17,7 @@ namespace WorkHourRoutes
                     workHour.JourneyId,
                     workHour.IP,
                     workHour.SyncDate,
+                    workHour.SyncDate,
                     workHour.IsActive,
                     workHour.CreatedBy,
                     workHour.UpdatedBy,

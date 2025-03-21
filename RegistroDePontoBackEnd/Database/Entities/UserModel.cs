@@ -9,6 +9,7 @@ public class UserModel
 
     public UserModel(string name, string email, string password, string mobilePhone, string externalId, DateTime creationDate, DateTime lastLogin, bool isActive)
     {
+        Id = Guid.NewGuid();
         Name = name;
         Email = email;
         Password = password;
@@ -20,7 +21,7 @@ public class UserModel
     }
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int Id { get; init; }
+    public Guid Id { get; init; }
     public string Name { get; set; }
     public string Password { get; set; }
     public string Email { get; set; }

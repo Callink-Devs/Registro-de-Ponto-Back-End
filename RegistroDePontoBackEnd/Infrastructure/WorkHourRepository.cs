@@ -29,9 +29,9 @@ namespace WorkHour.Infrastructure
                 workHour.CreatedDate,
                 workHour.UpdatedDate
             });
+
             return result;
         }
-
         public List<WorkHourModel> GetWorkHours()
         {
             using var conn = new RegistroDePontoContext();

@@ -11,11 +11,12 @@ namespace User.Infrastructure
             using var conn = new RegistroDePontoContext();
             string query = @"
                 INSERT INTO ""User""
-                (""Name"", ""Email"", ""Password"", ""MobilePhone"", ""External_Id"", ""Creation_Date"", ""Last_Login"", ""Is_Active"")
-                VALUES (@Name, @Email, @Password, @MobilePhone, @ExternalId, @CreationDate, @LastLogin, @IsActive)";
+                (""Id"", ""Name"", ""Email"", ""Password"", ""MobilePhone"", ""ExternalId"", ""CreationDate"", ""LastLogin"", ""IsActive"")
+                VALUES (@Id, @Name, @Email, @Password, @MobilePhone, @ExternalId, @CreationDate, @LastLogin, @IsActive)";
 
             var result = conn.Connection.Execute(query, new
             {
+                user.Id,
                 user.Name,
                 user.Email,
                 user.Password,
